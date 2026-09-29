@@ -1,0 +1,54 @@
+{
+  "name": "go-printf",
+  "version": "0.1.0",
+  "description": "Go's fmt.Sprintf for JavaScript and TypeScript: every verb and flag, exact float formatting, Go's %!verb(type=value) error forms, and explicit int/float/uint wrappers.",
+  "keywords": [
+    "go",
+    "golang",
+    "fmt",
+    "sprintf",
+    "printf",
+    "format",
+    "strconv",
+    "quote",
+    "template"
+  ],
+  "license": "MIT",
+  "author": "__AUTHOR__",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/__GH_OWNER__/go-printf.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE-go"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "test:dist": "node --test test/smoke.mjs",
+    "fuzz": "node bench/fuzz.ts",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build && npm run test:dist",
+    "bench:incumbents": "npm run build && node bench/incumbents.mjs",
+    "bench:corpus": "node bench/corpus.ts",
+    "fixtures": "node scripts/make-golden.ts && node scripts/make-fixture.ts",
+    "test:live": "GO_PRINTF_LIVE=1 node --test test/oracle.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.7.0"
+  }
+}
